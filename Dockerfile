@@ -1,26 +1,14 @@
-# Use an official Node.js runtime as a parent image
-FROM node:16-alpine
+FROM node:18-alpine3.17 as build
 
-# Set the working directory in the container
 WORKDIR /app
+COPY . /app
 
-# Copy package.json and package-lock.json
-COPY package*.json ./
-
-# Install dependencies
 RUN npm install
-
-# Copy the rest of the application code
-COPY . .
-
-# Build the app
 RUN npm run build
 
-# Use a lightweight web server to serve the static files
-RUN npm install -g serve
-
-# Expose the port on which the app will run
-EXPOSE 8080
-
-# Start the app
-CMD ["serve", "-s", "dist", "-l", "8080"]
+FROM ubuntu
+RUN apt-get update
+RUN apt-get install nginx -y
+COPY --from=build /app/dist /var/www/html/
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
