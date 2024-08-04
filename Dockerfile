@@ -1,18 +1,26 @@
-FROM node:18-alpine3.17
+# Use an official Node.js runtime as a parent image
+FROM node:16-alpine
 
+# Set the working directory in the container
 WORKDIR /app
 
-#COPY package*.json ./
-#
-#RUN npm cache clean --force
-#RUN npm install
-#
-#COPY . .
-#
-#RUN npm run build
-#
-#RUN npm install -g http-server
+# Copy package.json and package-lock.json
+COPY package*.json ./
 
-COPY. .
+# Install dependencies
+RUN npm install
 
-CMD ["sh", "-c", "http-server dist -p 8888"]
+# Copy the rest of the application code
+COPY . .
+
+# Build the app
+RUN npm run build
+
+# Use a lightweight web server to serve the static files
+RUN npm install -g serve
+
+# Expose the port on which the app will run
+EXPOSE 8888
+
+# Start the app
+CMD ["serve", "-s", "dist", "-l", "8888"]
