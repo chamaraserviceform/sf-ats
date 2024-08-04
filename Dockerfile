@@ -1,20 +1,18 @@
-# build environment
-#FROM node:18-alpine3.17 as build
+FROM node:18-alpine3.17
+
+WORKDIR /app
+
+#COPY package*.json ./
 #
-#WORKDIR /app
-#COPY . /app
-#
+#RUN npm cache clean --force
 #RUN npm install
+#
+#COPY . .
+#
 #RUN npm run build
+#
+#RUN npm install -g http-server
 
-# server environment
-FROM nginx:alpine
+COPY. .
 
-COPY nginx.conf /etc/nginx/conf.d/configfile.template
-ENV PORT=8080
-ENV HOST=0.0.0.0
-RUN sh -c "envsubst '\$PORT'  < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf"
-
-COPY index.html /usr/share/nginx/html
-EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "http-server dist -p 8888"]
