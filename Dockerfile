@@ -1,19 +1,26 @@
-# build environment
-FROM node:18-alpine3.17 as build
+# Use an official Node.js runtime as a parent image
+FROM node:16-alpine
 
+# Set the working directory in the container
 WORKDIR /app
-COPY . /app
 
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install dependencies
 RUN npm install
+
+# Copy the rest of the application code
+COPY . .
+
+# Build the app
 RUN npm run build
 
-# server environment
-FROM nginx:alpine
-COPY nginx.conf /etc/nginx/conf.d/configfile.template
-ENV PORT=8080
-ENV HOST=0.0.0.0
-RUN sh -c "envsubst '\$PORT'  < /etc/nginx/conf.d/configfile.template > /etc/nginx/conf.d/default.conf"
+# Use a lightweight web server to serve the static files
+RUN npm install -g http-server
 
-COPY --from=build /app/dist /usr/share/nginx/html
+# Expose the port on which the app will run
 EXPOSE 8080
-CMD ["nginx", "-g", "daemon off;"]
+
+# Start the app
+CMD ["http-server", "dist", "-p", "8080", "-a", "0.0.0.0"]
