@@ -13,4 +13,4 @@ RUN npm run build
 
 RUN npm install -g http-server
 
-CMD ["sh", "-c", "http-server dist -p ${PORT:-8080} -a 0.0.0.0"]
+CMD ["sh", "-c", "http-server dist -p 8080 -a 0.0.0.0"]
