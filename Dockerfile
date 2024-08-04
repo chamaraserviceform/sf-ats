@@ -5,16 +5,16 @@ FROM node:16-alpine
 WORKDIR /app
 
 # Copy package.json and package-lock.json
-COPY package*.json ./
+#COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN #npm install
 
 # Copy the rest of the application code
 COPY . .
 
 # Build the app
-RUN npm run build
+# RUN npm run build
 
 # Use a lightweight web server to serve the static files
 RUN npm install -g serve
@@ -23,4 +23,4 @@ RUN npm install -g serve
 EXPOSE 8888
 
 # Start the app
-CMD ["serve", "-s", "dist", "-l", "8888"]
+CMD ["serve", "-s", "./", "-l", "8888"]
