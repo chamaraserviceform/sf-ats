@@ -3,8 +3,6 @@ import {Link, Route, Routes} from "react-router-dom";
 import LandingPage from "./pages/LandingPage.jsx";
 import ObjectPage from "./pages/ObjectPage.jsx";
 
-//test
-
 function App() {
 
   return (
