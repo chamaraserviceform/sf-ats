@@ -74,3 +74,19 @@ function lightOrDark(color) {
         return 'dark';
     }
 }
+
+export function buildOptions (data, machine) {
+
+    const mapValues =  data.map(item => item[machine])
+        .filter(value => value)
+
+    const uniqueValues = [...new Set(mapValues)];
+
+    return uniqueValues.map(value => {
+        return {
+            value: value,
+            label: value,
+        }
+    })
+
+}

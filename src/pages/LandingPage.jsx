@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import {DataContext} from "../providers/DataProvider.jsx";
 import MainPageLoading from "../components/MainPageLoading.jsx";
 import './LandingPage.css'
@@ -28,7 +28,13 @@ export default function pageData () {
     if (pageData) {
         return <div>
             <PageHeader pageData={pageData} mainHeading={pageData?.h1} subHeading={pageData?.h2}/>
-            <ObjectList pageData={pageData} objects={objectData} loading={objectDataLoading} url={url}/>
+
+            {objectDataLoading && <div className={"flex justify-center m-10"}>
+                Loading...
+            </div>}
+
+            {!objectDataLoading && <ObjectList pageData={pageData} objects={objectData} loading={objectDataLoading} url={url}/>}
+
             <Footer pageData={pageData}/>
         </div>
     }
