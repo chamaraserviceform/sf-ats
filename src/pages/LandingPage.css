@@ -1,0 +1,43 @@
+a.sf-landing-page-link {
+    font-weight: 500;
+}
+input#sf-landing-page-search {
+    padding: 12px 20px;
+    border-radius: 59px !important;
+}
+label.sf-landing-page-search-label {
+    font-size: 14px;
+    font-weight: bold;
+}
+.sf-landing-page-header {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right;
+}
+.sf-landing-nav {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    gap: 15px;
+}
+.sf-landing-page-content {
+    margin: 20px auto;
+    max-width: 800px;
+}
+.sf-landing-page-content ul, ol {
+    list-style: revert !important;
+    padding-left: 1.5em;
+}
+.sf-landing-page-item-title {
+    font-weight: 800;
+}
+.landing-page-selector {
+    width: 30px;
+    padding: 5px;
+}
+.landing-page-preview-selector {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
+    gap: 5px;
+}

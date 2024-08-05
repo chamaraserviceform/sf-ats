@@ -1,7 +1,8 @@
-import {firestore} from "../helpers/firebaseInit.js";
+import {firestore} from "./firebaseInit.js";
 import {collection,getDocs, query, where} from "firebase/firestore"
+import axios from "axios";
 
-export default async function getLandingPageData (landingPageUrl) {
+export async function getLandingPageData (landingPageUrl) {
     try {
         // Reference to the audiences collection
         const audiencesCollectionRef = collection(firestore, 'flows');
@@ -23,5 +24,24 @@ export default async function getLandingPageData (landingPageUrl) {
         }
     } catch (error) {
         console.error("Error fetching audience:", error);
+        return null
+    }
+}
+
+export async function getObjectData(masterId, spaceId) {
+    const requestData = {
+        pageSize: 20,
+        masterId: masterId
+    };
+
+    try {
+
+        const res = await axios.post(`https://link.serviceform.com/public/flex/spaces/${spaceId}/items`, requestData)
+
+        return res.data
+
+    } catch (e) {
+        console.log(e)
+        return null
     }
 }

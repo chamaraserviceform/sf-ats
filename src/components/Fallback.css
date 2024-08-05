@@ -1,0 +1,29 @@
+.sf-btn-primary {
+    border-color: #000;
+    background-color: #000 !important;
+    color: #fff;
+    font-weight: 500;
+}
+
+.sf-btn {
+    border-radius: 6px;
+    line-height: 1.5;
+    font-weight: 400;
+    text-align: center;
+    padding: 8px 16px;
+    font-size: 14px;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    cursor: pointer;
+    min-width: 140px;
+}
+
+.sf-btn-primary:hover {
+    border-color: #f0f0f0;
+    background-color: #f0f0f0 !important;
+    color: #000;
+    font-weight: 500;
+}

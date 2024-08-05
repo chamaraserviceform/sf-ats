@@ -460,3 +460,9 @@ a.sf-landing-button.sf-landing-disable.sf-landing-button-small.sf-anim {
     min-height: 30px;
     transition: all 0.3s ease;
 }
+
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+}
+

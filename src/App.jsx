@@ -1,23 +1,27 @@
 import './App.css'
-import {Link, Route, Routes} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import LandingPage from "./pages/LandingPage.jsx";
 import ObjectPage from "./pages/ObjectPage.jsx";
+import {DataProvider} from "./providers/DataProvider.jsx";
+import Home from "./pages/Home.jsx";
 
 function App() {
 
   return (
     <>
         <div>
-            <nav>
-                <ul>
-                    <li>
-                        <Link to="/careers">Careers</Link>
-                    </li>
-                </ul>
-            </nav>
             <Routes>
-                <Route path="/:url" element={<LandingPage/>}/>
-                <Route path="/:url/:objectId" element={<ObjectPage/>}/>
+                <Route path="/" element={ <Home/>}/>
+                <Route path="/:url" element={
+                    <DataProvider>
+                        <LandingPage/>
+                    </DataProvider>
+                }/>
+                <Route path="/:url/:objectId" element={
+                    <DataProvider>
+                        <ObjectPage/>
+                    </DataProvider>
+                    }/>
             </Routes>
         </div>
     </>

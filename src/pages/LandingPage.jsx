@@ -1,21 +1,39 @@
+import {useContext, useEffect, useState} from "react";
+import {DataContext} from "../providers/DataProvider.jsx";
+import MainPageLoading from "../components/MainPageLoading.jsx";
+import './LandingPage.css'
+import ObjectList from "../components/ObjectList.jsx";
 import {useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import getLandingPageData from "./repository.js";
+import PageHeader from "../components/PageHeader.jsx";
+import Footer from "../components/Footer.jsx";
+import Fallback from "../components/Fallback.jsx";
 
-export default function LandingPage () {
-    const {url} = useParams();
-    const controller = new AbortController();
-    const [pageData, setPageData] = useState(null);
+export default function pageData () {
+    const {pageData, pageDataLoading, objectData, objectDataLoading} = useContext(DataContext);
+    const {url} = useParams()
+
+
+    if (pageDataLoading) {
+        return <MainPageLoading loading={pageDataLoading}/>
+    }
 
     useEffect(() => {
-        (async () => {
-            setPageData(
-                await getLandingPageData(url)
-            )
-        })()
-    }, []);
+        if (pageData?.h1) {
+            document.title = pageData?.h1;
+        }
+    }, [pageData?.h1]);
 
-    return <div>
-        <h1>Landing Page</h1>
-    </div>
+
+
+    if (pageData) {
+        return <div>
+            <PageHeader pageData={pageData} mainHeading={pageData?.h1} subHeading={pageData?.h2}/>
+            <ObjectList pageData={pageData} objects={objectData} loading={objectDataLoading} url={url}/>
+            <Footer pageData={pageData}/>
+        </div>
+    }
+
+    return <>
+        <Fallback />
+    </>
 }

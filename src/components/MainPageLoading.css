@@ -1,0 +1,22 @@
+.no-chosen-chat-wrapper {
+    width: 100%;
+    display: flex;
+    height: calc(100vh - 190px);
+    align-items: center;
+}
+
+.no-tools-message-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    justify-content: center;
+    text-align: center;
+    width: fit-content;
+    height: 60%;
+    flex-direction: column;
+    gap: 20px;
+}
+.no-tools-message-title {
+    font-size: 18px;
+    font-weight: bold;
+}
