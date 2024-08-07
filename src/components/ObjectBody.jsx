@@ -9,6 +9,20 @@ export default function ObjectBody ({objectData, pageData}) {
 
     const object = objectData?.items?.find(i => i.id === objectId);
 
+    useEffect(() => {
+        if (object) {
+
+            window.sfDynamicData = {
+                relation: [{
+                    "label": object.primary_field,
+                    "value": object.id,
+                    "spaceId" : object.space_id,
+                }]
+            }
+        }
+
+    }, [])
+
 
     useEffect(() => {
 

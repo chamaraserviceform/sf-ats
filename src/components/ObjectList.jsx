@@ -35,8 +35,17 @@ export default function ObjectList({pageData, objects, loading,url}) {
     }, [searchTerm, filters])
 
 
-    function gotObjectDetails (objectId) {
-        navigation(`${objectId}`)
+    function gotObjectDetails (object) {
+
+        window.sfDynamicData = {
+            relation: [{
+                "label": object.primary_field,
+                "value": object.id,
+                "spaceId" : object.space_id,
+            }]
+        }
+
+        navigation(`${object.id}`)
     }
 
     function filterAppliedItems (result) {
@@ -112,7 +121,7 @@ export default function ObjectList({pageData, objects, loading,url}) {
         <Filters pageData={pageData} fields={objects.fields} objects={objects.items} onFilterChange={handleFilterChange}/>
         <div className={"sf-landing-page-content"}>
             {(!loading) && filteredFlexData.map((data, index) => {
-                return <div key={data.id} className={"sf-landing-page-item sf-anim"} onClick={() => gotObjectDetails(data.id)}>
+                return <div key={data.id} className={"sf-landing-page-item sf-anim"} onClick={() => gotObjectDetails(data)}>
                     <div className={"sf-landing-page-item-title"}>{data[pageData.title]}</div>
                     <div
                         className={"sf-landing-page-item-item sf-landing-page-field"}>{data[pageData.subtitle]}

@@ -28,6 +28,7 @@ export default function ObjectPage() {
         }
     }
 
+
     if (pageData) {
         return <div>
             <PageHeader pageData={pageData} mainHeading={object[pageData?.title]}
