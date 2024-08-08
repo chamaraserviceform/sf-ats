@@ -42,8 +42,8 @@ export default function ObjectBody ({objectData, pageData}) {
                             return ""
                         },
                         stats: {
-                            tid: pageData.contactForm,
-                            tool: pageData.contactForm,
+                            tid: (object?.ats_form_select_4?.value || pageData.contactForm),
+                            tool: (object?.ats_form_select_4?.value || pageData.contactForm),
                             device: "",
                             pid: window.sf3pid,
                             lang: "",
@@ -81,10 +81,10 @@ export default function ObjectBody ({objectData, pageData}) {
                 }
             });
 
-            xhr.open("GET", currentUrl + "/api/public/tid/" + pageData.contactForm);
+            xhr.open("GET", currentUrl + "/api/public/tid/" + (object?.ats_form_select_4?.value || pageData.contactForm));
             xhr.send(data);
         }
-    }, [pageData?.contactForm]);
+    }, [pageData?.contactForm, object.ats_form_select_4]);
 
     function goBack () {
         navigation(`/${url}`)
