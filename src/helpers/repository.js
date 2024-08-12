@@ -38,6 +38,8 @@ export async function getObjectData(masterId, spaceId) {
 
         const res = await axios.post(`https://link.serviceform.com/public/flex/spaces/${spaceId}/items`, requestData)
 
+        res.data.items = res.data.items.sort((a, b) => a.ats_sort_select_5 - b.ats_sort_select_5)
+
         return res.data
 
     } catch (e) {
