@@ -109,6 +109,20 @@ export default function ObjectList({pageData, objects, loading,url}) {
         setFilters([...temFilters])
     }
 
+    function getTagName(field, data) {
+
+        if (objects?.fields?.length) {
+            const fieldConfig = objects.fields.find(f => f.machine === field);
+
+            if (fieldConfig?.type === "select") {
+                const selectOptions = fieldConfig.options.find(p => p.value ===  data[field]);
+                return selectOptions?.label
+            }
+        }
+
+        return data[field]
+    }
+
 
     return <div className={"sf-landing-page-body"}>
         <div className={"sf-landing-page-search sf-anim"}>
@@ -127,7 +141,7 @@ export default function ObjectList({pageData, objects, loading,url}) {
                         className={"sf-landing-page-item-item sf-landing-page-field"}>{data[pageData.subtitle]}
                     </div>
                     <div
-                        className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{data[pageData.tag1]}</div>
+                        className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag1, data)}</div>
                 </div>
             })}
             {(filteredFlexData && filteredFlexData.length === 0) && <div className={"sf-landing-no-data"}>

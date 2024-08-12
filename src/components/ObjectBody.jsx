@@ -23,6 +23,20 @@ export default function ObjectBody ({objectData, pageData}) {
 
     }, [])
 
+    function getTagName(field, data) {
+
+        if (objectData?.fields?.length) {
+            const fieldConfig = objectData.fields.find(f => f.machine === field);
+
+            if (fieldConfig?.type === "select") {
+                const selectOptions = fieldConfig.options.find(p => p.value ===  data[field]);
+                return selectOptions?.label
+            }
+        }
+
+        return data[field]
+    }
+
 
     useEffect(() => {
 
@@ -99,12 +113,12 @@ export default function ObjectBody ({objectData, pageData}) {
             <div className={"sf-landing-page-item sf-landing-page-item-open"}>
                 <div className={"sf-landing-page-item-item sf-landing-page-field"}
                      dangerouslySetInnerHTML={{__html: object[pageData.fullText]}}/>
-                <div className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{object[pageData.tag1]}</div>
+                <div className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag1, object)}</div>
                 {object[pageData.tag2] && <div
-                    className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{object[pageData.tag2]}</div>}
+                    className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag2, object)}</div>}
                 {
                     object[pageData.tag3] && <div
-                        className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{object[pageData.tag3]}</div>
+                        className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag3, object)}</div>
                 }
             </div>
 
