@@ -78,7 +78,7 @@ export default function ObjectBody ({objectData, pageData}) {
                         if (response !== '404') {
                             var link = document.createElement("link");
                             link.rel = "stylesheet";
-                            let u = 'http://localhost:3000';
+                            let u = currentUrl;
 
                             if (window.location.href.includes('test.html')) {
                                 u = 'http://localhost:3000';
