@@ -108,10 +108,12 @@ export default function ObjectBody ({objectData, pageData}) {
 
     return <div className={"sf-landing-page-body"}>
         <div className={"sf-landing-page-content"}>
-            <div className={"sf-landing-button sf-landing-button-back sf-anim"}
-                 onClick={goBack}>
-                {pageData.objectBackLinkText}</div>
-            <SocialShare object={object}/>
+            <div className={"flex justify-between items-center"}>
+                <div className={"sf-landing-button sf-landing-button-back sf-anim mt-6"}
+                     onClick={goBack}>
+                    {pageData.objectBackLinkText}</div>
+                <SocialShare object={object}/>
+            </div>
             <div className={"sf-landing-page-item sf-landing-page-item-open"}>
                 <div className={"sf-landing-page-item-item sf-landing-page-field"}
                      dangerouslySetInnerHTML={{__html: object[pageData.fullText]}}/>

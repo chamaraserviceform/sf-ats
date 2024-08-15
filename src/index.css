@@ -111,6 +111,7 @@ label.sf-landing-page-search-label {
     flex-direction: row;
     gap: 7px;
     font-size: 14px;
+    align-items: center;
 }
 
 .sf-landing-button:hover {
