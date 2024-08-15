@@ -111,6 +111,7 @@ export default function ObjectBody ({objectData, pageData}) {
             <div className={"sf-landing-button sf-landing-button-back sf-anim"}
                  onClick={goBack}>
                 {pageData.objectBackLinkText}</div>
+            <SocialShare object={object}/>
             <div className={"sf-landing-page-item sf-landing-page-item-open"}>
                 <div className={"sf-landing-page-item-item sf-landing-page-field"}
                      dangerouslySetInnerHTML={{__html: object[pageData.fullText]}}/>
@@ -122,7 +123,7 @@ export default function ObjectBody ({objectData, pageData}) {
                         className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag3, object)}</div>
                 }
             </div>
-            <SocialShare object={object}/>
+
 
             <div id="sf-chat-tool-form" className={"sf-landing-page-contact-form"}>
             </div>

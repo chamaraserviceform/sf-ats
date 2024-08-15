@@ -6,12 +6,17 @@ import {
     EmailShareButton,
     EmailIcon,
     LinkedinIcon,
-    LinkedinShareButton
+    LinkedinShareButton,
 } from 'next-share'
 
 import QRCode from 'qrcode.react';
 import {useEffect, useState} from "react";
 import qrIcon from "../assets/qr-code.png"
+import copyIcon from "../assets/copy.png"
+import whatsAppIcon from "../assets/whatsapp.png"
+// import share from "../assets/share.png"
+import { isBrowser, isMobile } from 'react-device-detect';
+
 
 export default function SocialShare({object}) {
 
@@ -23,7 +28,7 @@ export default function SocialShare({object}) {
         }
     },[object])
 
-    const downloadQRCode = () => {
+    function downloadQRCode () {
         const qrCodeURL = document.getElementById('qrCodeEl')
             .toDataURL("image/png")
             .replace("image/png", "image/octet-stream");
@@ -36,8 +41,34 @@ export default function SocialShare({object}) {
         document.body.removeChild(aEl);
     }
 
+    function copyLink() {
+        navigator.clipboard.writeText(window.location.href)
+    }
+
+    function shareToApp() {
+        if (navigator.share) {
+
+            navigator.share({
+                title: title,
+                url: window.location.href
+            })
+            .then(() => console.log('Successful share'))
+            .catch(error => console.log('Error sharing:', error));
+        }
+    }
+
+    function shareToWhatsApp () {
+        if (isMobile) {
+            window.open(`whatsapp://send?text=${title} ${window.location.href}`);
+        }
+
+        if (isBrowser) {
+            window.open(`https://web.whatsapp.com://send?text=${title} ${window.location.href}`);
+        }
+    }
+
     return <>
-        <div className={"flex my-4"}>
+        <div className={"flex my-4 justify-end"}>
             <TwitterShareButton
                 url={window.location.href}
                 title={title}
@@ -67,6 +98,15 @@ export default function SocialShare({object}) {
             </LinkedinShareButton>
             <div className={"rounded-[50%] bg-gray-200 p-2 hover:cursor-pointer"} onClick={downloadQRCode}>
                 <img src={qrIcon} width={16} alt={"QR Code"} />
+            </div>
+            <div className={"rounded-[50%] bg-red-200 p-2 hover:cursor-pointer"} onClick={copyLink}>
+                <img src={copyIcon} width={16} alt={"copy"}/>
+            </div>
+            {/*<div className={"rounded-[50%] bg-blue-200 p-2 hover:cursor-pointer"} onClick={shareToApp}>*/}
+            {/*    <img src={share} width={16} alt={"copy"}/>*/}
+            {/*</div>*/}
+            <div className={"rounded-[50%] bg-green-200 p-2 hover:cursor-pointer"} onClick={shareToWhatsApp}>
+                <img src={whatsAppIcon} width={16} alt={"copy"}/>
             </div>
         </div>
         <QRCode
