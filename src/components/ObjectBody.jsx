@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {generateId, loadScript} from "../helpers/util.js";
 import {useNavigate, useParams} from "react-router-dom";
 import SocialShare from "./SocialShare.jsx";
@@ -7,6 +7,8 @@ export default function ObjectBody ({objectData, pageData}) {
 
     const {url, objectId} = useParams();
     const navigation = useNavigate()
+
+    const [jobTags, setJobTags] = useState([])
 
     const object = objectData?.items?.find(i => i.id === objectId);
 
@@ -20,6 +22,8 @@ export default function ObjectBody ({objectData, pageData}) {
                     "spaceId" : object.space_id,
                 }]
             }
+
+            getTags()
         }
 
     }, [])
@@ -29,13 +33,51 @@ export default function ObjectBody ({objectData, pageData}) {
         if (objectData?.fields?.length) {
             const fieldConfig = objectData.fields.find(f => f.machine === field);
 
+
             if (fieldConfig?.type === "select") {
                 const selectOptions = fieldConfig.options.find(p => p.value ===  data[field]);
                 return selectOptions?.label
             }
+
+
         }
 
         return data[field]
+    }
+
+    function getTags () {
+        const tagNames = ['tag1', 'tag2', 'tag3'];
+
+        const allTags = []
+
+        for (const tag of tagNames) {
+
+            const pageTag = pageData[tag]
+
+            const fieldConfig = objectData.fields.find(f => f.machine === pageTag);
+
+
+            if (fieldConfig?.type === "select") {
+                const selectOptions = fieldConfig.options.find(p => p.value ===  object[pageTag]);
+                allTags.push(selectOptions?.label)
+                continue
+            }
+
+            if (fieldConfig?.type === "tags") {
+
+                if (Array.isArray(object[pageTag])) {
+                    object[pageTag]
+                      .forEach(t => {
+                          allTags.push(fieldConfig.options.find(p => p.value === t)?.label);
+                      })
+                }
+                continue
+            }
+
+            allTags.push(object[pageTag])
+        }
+
+        setJobTags(allTags)
     }
 
 
@@ -117,12 +159,9 @@ export default function ObjectBody ({objectData, pageData}) {
             <div className={"sf-landing-page-item sf-landing-page-item-open"}>
                 <div className={"sf-landing-page-item-item sf-landing-page-field"}
                      dangerouslySetInnerHTML={{__html: object[pageData.fullText]}}/>
-                <div className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag1, object)}</div>
-                {object[pageData.tag2] && <div
-                    className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag2, object)}</div>}
                 {
-                    object[pageData.tag3] && <div
-                        className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{getTagName(pageData.tag3, object)}</div>
+                    jobTags.map(tag => <div key={tag}
+                      className={"sf-landing-page-item-item-2 sf-landing-page-field"}>{tag}</div>)
                 }
             </div>
 

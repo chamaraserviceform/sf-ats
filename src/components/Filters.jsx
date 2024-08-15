@@ -42,7 +42,6 @@ export default function Filters ({pageData, fields, objects, onFilterChange}) {
     };
 
     const filterList = tagNames.map(name => pageData[name])
-        .filter(value => value)
         .map(machine => {
 
             const config = fields.find(f =>f.machine === machine)
@@ -63,6 +62,7 @@ export default function Filters ({pageData, fields, objects, onFilterChange}) {
                 }
             }
         })
+        .filter(value => value)
 
     function handleFilterChange (value, machine) {
         onFilterChange(value,machine)
@@ -70,9 +70,9 @@ export default function Filters ({pageData, fields, objects, onFilterChange}) {
 
     return <div className={"sf-landing-page-content flex space-x-5 justify-end"}>
         {filterList.map(config => {
-            return <Fragment key={config.id}>
+            return <Fragment key={config?.id}>
                 <div className={"sf-landing-page-filter w-1/4"}>
-                    <Select styles={customStyles} isClearable={true} isMulti={true} options={config.options} placeholder={config.name} onChange={(e) => handleFilterChange(e, config.machine)}/>
+                    <Select styles={customStyles} isClearable={true} isMulti={true} options={config?.options || []} placeholder={config?.name} onChange={(e) => handleFilterChange(e, config?.machine)}/>
                 </div>
             </Fragment>
         })}
