@@ -66,7 +66,7 @@ export default function ObjectList({pageData, objects, loading,url}) {
                         let found = false
                         for (let k = 0; k < filter.values.length; k++) {
                             const val = filter.values[k]
-                            if (item[filter.machine] === val.value) {
+                            if (item[filter.machine] === val.value || item[filter.machine]?.includes(val.value) ) {
                                 found = true
                                 break
                             }

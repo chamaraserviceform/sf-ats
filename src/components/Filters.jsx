@@ -46,7 +46,7 @@ export default function Filters ({pageData, fields, objects, onFilterChange}) {
 
             const config = fields.find(f =>f.machine === machine)
 
-            if (config && (config.type === 'tag' || config.type === 'select')) {
+            if (config && (config.type === 'tags' || config.type === 'select')) {
                 return config
             }
 
