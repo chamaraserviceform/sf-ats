@@ -70,50 +70,48 @@ export default function SocialShare({object}) {
     return <>
         <div className={"flex my-4 justify-end"}>
             <TwitterShareButton
-                url={window.location.href}
-                title={title}
+              url={window.location.href}
+              title={title}
             >
                 <TwitterIcon size={32} round/>
             </TwitterShareButton>
             <FacebookShareButton
-                url={window.location.href}
-                title={title}
+              url={window.location.href}
+              title={title}
             >
 
                 <FacebookIcon size={32} round/>
             </FacebookShareButton>
             <EmailShareButton
-                url={window.location.href}
-                title={title}
+              url={window.location.href}
+              title={title}
             >
 
                 <EmailIcon size={32} round/>
             </EmailShareButton>
             <LinkedinShareButton
-                url={window.location.href}
-                title={title}
+              url={window.location.href}
+              title={title}
             >
 
                 <LinkedinIcon size={32} round/>
             </LinkedinShareButton>
+            <div className={"rounded-[50%] bg-green-200 p-2 hover:cursor-pointer"} onClick={shareToWhatsApp}>
+                <img src={whatsAppIcon} width={16} alt={"copy"}/>
+            </div>
             <div className={"rounded-[50%] bg-gray-200 p-2 hover:cursor-pointer"} onClick={downloadQRCode}>
-                <img src={qrIcon} width={16} alt={"QR Code"} />
+                <img src={qrIcon} width={16} alt={"QR Code"}/>
             </div>
             <div className={"rounded-[50%] bg-red-200 p-2 hover:cursor-pointer"} onClick={copyLink}>
                 <img src={copyIcon} width={16} alt={"copy"}/>
             </div>
-            {/*<div className={"rounded-[50%] bg-blue-200 p-2 hover:cursor-pointer"} onClick={shareToApp}>*/}
-            {/*    <img src={share} width={16} alt={"copy"}/>*/}
-            {/*</div>*/}
-            <div className={"rounded-[50%] bg-green-200 p-2 hover:cursor-pointer"} onClick={shareToWhatsApp}>
-                <img src={whatsAppIcon} width={16} alt={"copy"}/>
-            </div>
+
         </div>
         <QRCode
-            className={"hidden"}
-            id="qrCodeEl"
-            size={150}
-            value={window.location.href}
+          className={"hidden"}
+          id="qrCodeEl"
+          size={150}
+          value={window.location.href}
         />
     </>
 
