@@ -7,6 +7,7 @@ import {useParams} from "react-router-dom";
 import PageHeader from "../components/PageHeader.jsx";
 import Footer from "../components/Footer.jsx";
 import Fallback from "../components/Fallback.jsx";
+import {Helmet} from "react-helmet-async";
 
 export default function pageData () {
     const {pageData, pageDataLoading, objectData, objectDataLoading} = useContext(DataContext);
@@ -17,16 +18,15 @@ export default function pageData () {
         return <MainPageLoading loading={pageDataLoading}/>
     }
 
-    useEffect(() => {
-        if (pageData?.h1) {
-            document.title = pageData?.h1;
-        }
-    }, [pageData?.h1]);
-
 
 
     if (pageData) {
         return <div>
+            <Helmet>
+                <title>{pageData?.h1 || "Serviceform"}</title>
+                <meta property="og:title" content={pageData?.h1 || "Serviceform"} />
+            </Helmet>
+
             <PageHeader pageData={pageData} mainHeading={pageData?.h1} subHeading={pageData?.h2}/>
 
             {objectDataLoading && <div className={"flex justify-center m-10"}>

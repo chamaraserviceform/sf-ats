@@ -7,6 +7,7 @@ import "./ObjectPage.css"
 import ObjectBody from "../components/ObjectBody.jsx";
 import Fallback from "../components/Fallback.jsx";
 import Footer from "../components/Footer.jsx";
+import {Helmet} from "react-helmet-async";
 
 export default function ObjectPage() {
     const {objectData, pageData, pageDataLoading, objectDataLoading} = useContext(DataContext);
@@ -28,15 +29,13 @@ export default function ObjectPage() {
         }
     }
 
-    useEffect(() => {
-        if (pageData?.h1) {
-            document.title = `${pageData?.h1} | ${object[pageData?.title]}`;
-        }
-    }, [pageData?.h1]);
-
 
     if (pageData) {
         return <div>
+            <Helmet>
+                <title>{ (`${pageData?.h1} | ${object[pageData?.title]}`) || "Serviceform"}</title>
+                <meta property="og:title" content={ (`${pageData?.h1} | ${object[pageData?.title]}`) || "Serviceform"} />
+            </Helmet>
             <PageHeader pageData={pageData} mainHeading={object[pageData?.title]}
                         subHeading={object[pageData?.subtitle]}>
                 <div className={"sf-landing-button sf-landing-button-submit sf-anim"}
