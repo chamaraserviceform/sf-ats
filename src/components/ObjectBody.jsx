@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {generateId, loadScript} from "../helpers/util.js";
 import {useNavigate, useParams} from "react-router-dom";
 import SocialShare from "./SocialShare.jsx";
+import backIcon from "../assets/back.png";
 
 export default function ObjectBody ({objectData, pageData}) {
 
@@ -152,8 +153,7 @@ export default function ObjectBody ({objectData, pageData}) {
         <div className={"sf-landing-page-content"}>
             <div className={"flex justify-between items-center"}>
                 <div className={"sf-landing-button sf-landing-button-back sf-anim mt-6"}
-                     onClick={goBack}>
-                    {pageData.objectBackLinkText}</div>
+                     onClick={goBack}><img src={backIcon} width={16} alt=""/></div>
                 <SocialShare object={object}/>
             </div>
             <div className={"sf-landing-page-item sf-landing-page-item-open"}>
