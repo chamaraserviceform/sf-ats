@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {DataContext} from "../providers/DataProvider.jsx";
 import PageHeader from "../components/PageHeader.jsx";
 import MainPageLoading from "../components/MainPageLoading.jsx";
@@ -27,6 +27,12 @@ export default function ObjectPage() {
             footerElement.scrollIntoView({ behavior: 'smooth' });
         }
     }
+
+    useEffect(() => {
+        if (pageData?.h1) {
+            document.title = `${pageData?.h1} | ${object[pageData?.title]}`;
+        }
+    }, [pageData?.h1]);
 
 
     if (pageData) {
